@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -31,13 +32,24 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+    const navigate = useNavigate();
+    const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    const user = [data.get('email'), data.get('password')]
+    var url = "http://localhost:8080/User/AddAccount?account=" + data.get('email') + "&password=" + data.get('password');
+    fetch(url, {
+        method:"POST",
+        headers:{"Content-Type":"application.json"},
+        body:JSON.stringify(user)
+    }).then(() =>{
+        console.log("Add new user");
+        navigate(-1)
+    })
   };
 
   return (
@@ -84,6 +96,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+
             >
               Sign In
             </Button>

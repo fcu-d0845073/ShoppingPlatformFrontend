@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react'
 
 function Copyright(props) {
   return (
@@ -31,6 +33,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,6 +42,15 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    fetch("http://localhost:8080/User/login?account=" + data.get('email') + "&password=" + data.get('password'))
+    .then(res => res.json())
+    .then(result => {
+      if (result === true) {
+        navigate(-1)
+      } else {
+        setErrorMessage("You enter the wrong account or password!");
+      }
+    })
   };
 
   return (
@@ -87,6 +100,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {errorMessage && <div className="error"> {errorMessage} </div>}
             <Grid container>
               <Grid item xs>
                 <Link href="http://localhost:3000/#/Login/updateaccount" variant="body2">
