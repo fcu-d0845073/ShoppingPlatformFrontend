@@ -15,37 +15,48 @@ import love from './Images/love.JPG'
 import terrible from './Images/terrible.JPG'
 import yt from './Images/yt.JPG'
 
-export default function ShoppingCart(){
+export default function CommodityRecord(){
 
     const navigate = useNavigate();
     const location = useLocation();
     const [commodity, setCommodity] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() =>{
-        if (location.state.value === 1) {
-            if (!localStorage.getItem('Commodity') === null)
-                setCommodity(JSON.parse(localStorage.getItem('Commodity')));
-            else
+    useState(() => {
+        var url = "http://localhost:8080/CommodityRecord/SearchCommodityRecord?account=d0845073"
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            if (!result === null) {
+                setCommodity(result);
+            } else {
                 setCommodity("");
-        } else if (location.state.value === 2) {
-            setCommodity(location.state.obj);
-            var commodityString = JSON.stringify(location.state.obj);
-            localStorage.setItem('Commodity', commodityString);
-        }
+            }
+        })
     })
 
-    function removeCommodity() {
-        console.log("remove");
-        localStorage.removeItem('Commodity');
-        setCommodity("");
-        navigate("/#");
+    function refund() {
+        const refundType = [commodity[0].id]
+        var url = "http://localhost:8080/CommodityRecord/Refund?account=d0845073&id=" + commodity[0].id;
+        fetch(url, {
+            method:"POST",
+            headers:{"Content-Type":"application.json"},
+            body:JSON.stringify(refundType)
+        }).then(res => res.json())
+          .then(result => {
+            if (result === true) {
+                navigate("/#");
+            } else {
+                setErrorMessage("With some error!");
+            }
+          })
     }
 
     return(
         <div>
             {commodity && 
-                <Container fixed style={{marginTop:'10px'}} onClick = {() =>{
-                    removeCommodity();
+                <Container fixed style={{marginTop:'10px'}} onClick={() =>{
+                    refund();
                 }}>
                     <Card style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}>
                     <CardActionArea>
@@ -77,12 +88,7 @@ export default function ShoppingCart(){
                     </CardActionArea>
                     </Card>
                 </Container>}
-            <button onClick={() => navigate("/CheckBill", {
-                state : {
-                    obj : commodity
-                },
-            })}>結帳</button><br/>
-            <button onClick={() => navigate("/#")}>回首頁</button>
+            <button onClick={() => navigate(-1)}>回上一頁</button>
         </div>
     )
 }

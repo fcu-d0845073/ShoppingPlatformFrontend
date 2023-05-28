@@ -12,6 +12,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import domestic from './Images/domestic.JPG'
+import education from './Images/education.JPG'
+import foreign from './Images/foreign.JPG'
+import japan from './Images/japan.JPG'
+import love from './Images/love.JPG'
+import terrible from './Images/terrible.JPG'
+import yt from './Images/yt.JPG'
 
 export default function CheckBill(){
 
@@ -91,6 +98,13 @@ export default function CheckBill(){
                 {commodity.map(commodity => (
                     <div>
                         <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={commodity.id}>
+                        {commodity.attribute === "Domestic" && <div><img style={{ alignItems: 'flex-end' }} src={domestic} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Education" && <div><img src={education} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Foreign" && <div><img src={foreign} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Japan" && <div><img src={japan} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Love" && <div><img src={love} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Terrible" && <div><img src={terrible} width={200} height={200} alt=""></img></div>}
+                        {commodity.attribute === "Yt" && <div><img src={yt} width={200} height={200} alt=""></img></div>}
                         Id:{commodity.id}<br/>
                         Attribute:{commodity.attribute}<br/>
                         Classfication:{commodity.classfication}<br/>

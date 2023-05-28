@@ -41,9 +41,9 @@ export default function ButtonAppBar() {
               ShoppingPlatform
             </Typography>
             <TextField></TextField>
-            <Link to = "/">
-              <Button color="inherit"><span style={{color: 'white'}}>訂單查詢</span></Button>
-            </Link>
+            <Button color="inherit"><span style={{color: 'white'}} onClick={() => {
+              navigate("/CommodityRecord");
+            }}>訂單查詢</span></Button>
             <Button color="inherit"><span style={{color: 'white'}} onClick={() => {
               navigate("/ShoppingCart", {
                 state : {
@@ -73,8 +73,8 @@ export default function ButtonAppBar() {
               <FormControlLabel value="Yt" control={<Radio />} label="Yt" onChange={(e) => {setName(e.target.value)}}/>
               <FormLabel id="demo-radio-buttons-group-label"><h3>CD</h3></FormLabel>
               <FormControlLabel value="Domestic" control={<Radio />} label="Domestic" onChange={(e) => {setName(e.target.value)}}/>
-              <FormControlLabel value="Foriegn" control={<Radio />} label="Foriegn" onChange={(e) => {setName(e.target.value)}}/>
-              <FormControlLabel value="Japen" control={<Radio />} label="Japan" onChange={(e) => {setName(e.target.value)}}/>
+              <FormControlLabel value="Foreign" control={<Radio />} label="Foriegn" onChange={(e) => {setName(e.target.value)}}/>
+              <FormControlLabel value="Japan" control={<Radio />} label="Japan" onChange={(e) => {setName(e.target.value)}}/>
             </RadioGroup>
             </FormControl>
       </ul>

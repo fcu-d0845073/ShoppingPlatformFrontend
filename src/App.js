@@ -8,6 +8,7 @@ import UpdateAccount from './components/UpdateAccount'
 import CommodityPage from './components/CommodityPage';
 import ShoppingCart from './components/ShoppingCart'
 import CheckBill from './components/CheckBill'
+import CommodityRecord from './components/CommodityRecord';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path = "/Commodity" element = {<CommodityPage/>}/>
         <Route path = "/ShoppingCart" element = {<ShoppingCart/>}/>
         <Route path = "/CheckBill" element = {<CheckBill/>}/>
+        <Route path = "/CommodityRecord" element = {<CommodityRecord/>}/>
       </Routes>
     </HashRouter>
     
