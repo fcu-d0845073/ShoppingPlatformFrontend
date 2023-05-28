@@ -44,9 +44,14 @@ export default function ButtonAppBar() {
             <Link to = "/">
               <Button color="inherit"><span style={{color: 'white'}}>訂單查詢</span></Button>
             </Link>
-            <Link to = "/">
-              <Button color="inherit"><span style={{color: 'white'}}>購物車</span></Button>
-            </Link>
+            <Button color="inherit"><span style={{color: 'white'}} onClick={() => {
+              navigate("/ShoppingCart", {
+                state : {
+                  obj : "",
+                  value : 1,
+                },
+              });
+            }}>購物車</span></Button>
             <Link to = "/login">
               <Button color="inherit"><span style={{color: 'white'}}>登入</span></Button>
             </Link>

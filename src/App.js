@@ -6,6 +6,8 @@ import Login from './components/LoginPage';
 import SignUp from './components/SignUpPage';
 import UpdateAccount from './components/UpdateAccount'
 import CommodityPage from './components/CommodityPage';
+import ShoppingCart from './components/ShoppingCart'
+import CheckBill from './components/CheckBill'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path = "/login/signup" element = {<SignUp/>}/>
         <Route path = "/login/updateaccount" element = {<UpdateAccount/>}/>
         <Route path = "/Commodity" element = {<CommodityPage/>}/>
+        <Route path = "/ShoppingCart" element = {<ShoppingCart/>}/>
+        <Route path = "/CheckBill" element = {<CheckBill/>}/>
       </Routes>
     </HashRouter>
     

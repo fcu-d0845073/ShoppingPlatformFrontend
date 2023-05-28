@@ -19,8 +19,25 @@ export default function CommodityPage() {
     useEffect(() => {
         var url;
         if (location.state.id === 1) {
-            
-            url = "http://localhost:8080/Commodity/SearchCommodity?name=&classfication=" + "Book" + "&attribute=" + location.state.value;
+            var classfication;
+            if (location.state.value.localeCompare("None") === 0 ) {
+                classfication = "";
+            } else if (location.state.value.localeCompare("Education") === 0 ) {
+                classfication = "Book";
+            } else if (location.state.value.localeCompare("Love") === 0 ) {
+                classfication = "Book";
+            } else if (location.state.value.localeCompare("Terrible") === 0 ) {
+                classfication = "Book";
+            } else if (location.state.value.localeCompare("Yt") === 0 ) {
+                classfication = "Book";
+            } else if (location.state.value.localeCompare("Domestic") === 0 ) {
+                classfication = "Cd";
+            } else if (location.state.value.localeCompare("Foriegn") === 0 ) {
+                classfication = "Cd";
+            } else if (location.state.value.localeCompare("Japan") === 0 ) {
+                classfication = "Cd";
+            }
+            url = "http://localhost:8080/Commodity/SearchCommodity?name=&classfication=" + classfication + "&attribute=" + location.state.value;
 
         } else if (location.state.id === 2){
             url = "http://localhost:8080/Commodity/SearchCommodity?name=" + location.state.value + "&classfication=&attribute=";
@@ -32,24 +49,32 @@ export default function CommodityPage() {
         })
     })
 
-
     return(
         <div>
-            <Container fixed style={{marginTop:'10px'}}>
+            <Container fixed style={{marginTop:'10px'}} onClick={() =>{
+                navigate("/ShoppingCart", {
+                    state: {
+                        obj : commodity,
+                        value : 2,
+                    },
+                });
+            }}>
                 <Card style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}>
                 <CardActionArea>
                     <CardContent>
                     <Typography variant="body2">
                     <Paper elevation={3}>
                     {commodity.map(commodity => (
-                        <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={commodity.id}>
-                        Id:{commodity.id}<br/>
-                        Attribute:{commodity.attribute}<br/>
-                        Classfication:{commodity.classfication}<br/>
-                        Name:{commodity.name}<br/>
-                        Price:{commodity.price}<br/>
-                        Quantity:{commodity.quantity}<br/>
-                        </Paper>
+                        <div>
+                            <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={commodity.id}>
+                            Id:{commodity.id}<br/>
+                            Attribute:{commodity.attribute}<br/>
+                            Classfication:{commodity.classfication}<br/>
+                            Name:{commodity.name}<br/>
+                            Price:{commodity.price}<br/>
+                            Quantity:{commodity.quantity}<br/>
+                            </Paper> 
+                        </div>
                     ))}
                     </Paper>
                     </Typography>

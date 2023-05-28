@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react';
 
 function Copyright(props) {
   return (
@@ -33,6 +34,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,14 +45,19 @@ export default function SignIn() {
     });
     const user = [data.get('email'), data.get('password'), data.get('newPassword')]
     var url = "http://localhost:8080/User/UpdateAccount?account=" + data.get('email') + "&oldPassword=" + data.get('password') + "&newPassword=" + data.get('newPassword');
+    console.log(url);
     fetch(url, {
         method:"POST",
         headers:{"Content-Type":"application.json"},
         body:JSON.stringify(user)
-    }).then(() =>{
-        console.log("Update account");
-        navigate(-1)
-    })
+    }).then(res => res.json())
+      .then(result => {
+        if (result === true) {
+          navigate(-1);
+        } else {
+          setErrorMessage("You enter the wrong account or password!");
+        }
+      })
   };
 
   return (
@@ -98,7 +105,7 @@ export default function SignIn() {
               fullWidth
               name="newPassword"
               label="Newpassword"
-              type="newPassword"
+              type="password"
               id="newPassword"
               autoComplete="current-password"
             />
@@ -110,6 +117,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {errorMessage && <div className="error"> {errorMessage} </div>}
             <Grid container>
               <Grid item xs>
               </Grid>
